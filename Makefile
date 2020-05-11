@@ -3,7 +3,7 @@
 CC = gcc
 prefix=/usr/local
 SRCS := $(wildcard Source/*.c)
-install_dir = $(DESTDIR)/$(prefix)/share/fpms
+install_dir = $(DESTDIR)$(prefix)/share/fpms
 
 LDCFLAGS += -lrt -lpthread
 
@@ -23,7 +23,7 @@ oled-start: NanoHatOLED
 install: NanoHatOLED oled-start
 	mkdir -p $(install_dir)
 	cp -rf $(filter-out debian fpms.service,$(wildcard *)) $(install_dir)
-	ln -s ../share/fpms/oled-start $(DESTDIR)/$(prefix)/bin/oled-start
+	ln -s ../share/fpms/oled-start $(DESTDIR)$(prefix)/bin/oled-start
 	install fpms.service $(DESTDIR)/lib/systemd/system
 
 clean:
