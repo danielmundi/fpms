@@ -89,6 +89,11 @@ from textwrap import wrap
 __version__ = "0.36 (beta)"
 __author__ = "wifinigel@gmail.com"
 
+#########################################
+# Change working directory to script path
+#########################################
+os.chdir(os.path.dirname(sys.argv[0]))
+
 ############################
 # Set display size
 ############################

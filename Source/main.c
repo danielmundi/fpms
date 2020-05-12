@@ -78,6 +78,8 @@ static int get_work_path(char* buff, int maxlen) {
        *pos = '\0';
     }
 
+    log2file("work_dir = %s\n", buff);
+
     return 0;
 }
 static char workpath[255];
@@ -118,7 +120,7 @@ void* threadfunc(char* arg) {
 int load_python_view() {
     int ret;
     char* cmd = (char*)malloc(255);
-    sprintf(cmd, "cd %s/BakeBit/Software/Python && python3 %s 2>&1 | tee /tmp/nanoled-python.log", workpath, python_file);
+    sprintf(cmd, "python3 ./BakeBit/Software/Python/%s 2>&1 | tee /tmp/nanoled-python.log", python_file);
     ret = pthread_create(&view_thread_id, NULL, (void*)threadfunc,cmd);
     if(ret) {
         log2file("create pthread error \n");
