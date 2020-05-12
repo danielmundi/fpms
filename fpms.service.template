@@ -2,7 +2,8 @@
 Description=FPMS daemon responsible for OLED management
 
 [Service]
-ExecStart=/usr/local/bin/oled-start
+WorkingDirectory=/usr/local/share/fpms
+ExecStart=/usr/local/share/fpms/NanoHatOLED
 
 [Install]
 WantedBy=multi-user.target
