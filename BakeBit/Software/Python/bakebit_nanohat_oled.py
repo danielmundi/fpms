@@ -92,7 +92,9 @@ __author__ = "wifinigel@gmail.com"
 #########################################
 # Change working directory to script path
 #########################################
-os.chdir(os.path.dirname(sys.argv[0]))
+current_script_path = os.path.dirname(sys.argv[0])
+if current_script_path != '':
+    os.chdir(current_script_path)
 
 ############################
 # Set display size
