@@ -8,7 +8,7 @@ install_dir = $(DESTDIR)$(prefix)/share/fpms
 
 LDCFLAGS += -lrt -lpthread
 
-all: NanoHatOLED oled-start fpms.service
+all: NanoHatOLED oled-start
 
 NanoHatOLED: $(SRCS)
 	# $@ = target (NanoHatOLED); $^ = prerequisites (SRCS files)
@@ -21,15 +21,14 @@ oled-start: NanoHatOLED
 	$(file >> $@,./$<)
 	chmod +x $@
 
-fpms.service: fpms.service.template
-	sed "s#$(default_prefix)#$(prefix)#g" $< >$@
-
-install: NanoHatOLED oled-start fpms.service
+install: NanoHatOLED oled-start
 	mkdir -p $(install_dir) \
 		$(DESTDIR)$(prefix)/bin/oled-start \
 		$(DESTDIR)/lib/systemd/system
 	cp -rf $(filter-out debian fpms.service fpms.service.template,$(wildcard *)) $(install_dir)
 	install oled-start $(DESTDIR)$(prefix)/bin/oled-start
+	# Correct the prefix on fpms.service ExecStart
+	sed "s#$(default_prefix)#$(prefix)#g" fpms.service.template > fpms.service
 	install fpms.service $(DESTDIR)/lib/systemd/system
 
 clean:
